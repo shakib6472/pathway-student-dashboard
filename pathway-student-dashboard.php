@@ -28,6 +28,7 @@ define( 'PATHWAY_DASH_URL', plugin_dir_url( __FILE__ ) );
 require_once PATHWAY_DASH_DIR . 'includes/helpers.php';
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-courses.php';
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-stats.php';
+require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-analytics.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-assets.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-shortcode.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard.php';

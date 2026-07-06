@@ -31,7 +31,14 @@ class Pathway_Dashboard_Assets {
 	 *
 	 * @var string[]
 	 */
-	const TAB_STYLES = array( 'my-courses' );
+	const TAB_STYLES = array( 'my-courses', 'progress' );
+
+	/**
+	 * Tabs that ship their own script in assets/js/tabs/{slug}.js.
+	 *
+	 * @var string[]
+	 */
+	const TAB_SCRIPTS = array( 'progress' );
 
 	/**
 	 * Constructor.
@@ -87,6 +94,16 @@ class Pathway_Dashboard_Assets {
 			true
 		);
 
+		foreach ( self::TAB_SCRIPTS as $tab_slug ) {
+			wp_register_script(
+				'pathway-dash-tab-' . $tab_slug,
+				PATHWAY_DASH_URL . 'assets/js/tabs/' . $tab_slug . '.js',
+				array( 'pathway-dash', 'pathway-dash-chartjs' ),
+				PATHWAY_DASH_VERSION,
+				true
+			);
+		}
+
 		wp_localize_script(
 			'pathway-dash',
 			'pathwayDash',
@@ -135,5 +152,9 @@ class Pathway_Dashboard_Assets {
 		}
 
 		wp_enqueue_script( 'pathway-dash' );
+
+		foreach ( self::TAB_SCRIPTS as $tab_slug ) {
+			wp_enqueue_script( 'pathway-dash-tab-' . $tab_slug );
+		}
 	}
 }

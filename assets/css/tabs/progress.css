@@ -1,0 +1,264 @@
+/**
+ * Progress Analytics tab styles.
+ *
+ * Blocks: pd-analytics (layout), pd-ring / pd-ring-card (progress ring),
+ * pd-chart-card (weekly activity), pd-modules (module completion),
+ * pd-quiz-scores (quiz history).
+ * Everything is scoped under .pathway-dash.
+ */
+
+.pathway-dash .pd-analytics__row {
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+.pathway-dash .pd-analytics__heading {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 16px;
+}
+
+/* ---- Overall progress ring ---- */
+
+.pathway-dash .pd-ring-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.pathway-dash .pd-ring {
+	position: relative;
+	width: 170px;
+	height: 170px;
+	margin: 8px 0 14px;
+}
+
+.pathway-dash .pd-ring svg {
+	width: 100%;
+	height: 100%;
+	transform: rotate(-90deg);
+}
+
+.pathway-dash .pd-ring__track,
+.pathway-dash .pd-ring__value {
+	fill: none;
+	stroke-width: 11;
+}
+
+.pathway-dash .pd-ring__track {
+	stroke: var(--pd-mint-wash);
+}
+
+.pathway-dash .pd-ring__value {
+	stroke: var(--pd-teal);
+	stroke-linecap: round;
+	transition: stroke-dashoffset 0.6s ease;
+}
+
+.pathway-dash .pd-ring__center {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.pathway-dash .pd-ring__pct {
+	font-family: var(--pd-font-heading);
+	font-size: 34px;
+	font-weight: 700;
+	color: var(--pd-navy);
+	line-height: 1;
+}
+
+.pathway-dash .pd-ring__caption {
+	font-size: 13px;
+	color: var(--pd-teal);
+	margin-top: 4px;
+}
+
+.pathway-dash .pd-ring-card__meta {
+	font-size: 13px;
+	color: var(--pd-teal);
+}
+
+/* ---- Weekly activity chart ---- */
+
+.pathway-dash .pd-chart-card__caption {
+	font-size: 13px;
+	color: var(--pd-teal);
+	margin: -10px 0 16px;
+}
+
+.pathway-dash .pd-chart-card__canvas {
+	position: relative;
+	height: 240px;
+}
+
+/* ---- Module completion ---- */
+
+.pathway-dash .pd-modules {
+	margin-bottom: 16px;
+}
+
+.pathway-dash .pd-modules__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pathway-dash .pd-modules__item {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 12px 0;
+	border-bottom: 1px solid var(--pd-border);
+}
+
+.pathway-dash .pd-modules__item:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.pathway-dash .pd-modules__status {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	flex-shrink: 0;
+	border-radius: 50%;
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-border);
+	color: var(--pd-teal-dark);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.pathway-dash .pd-modules__status svg {
+	width: 15px;
+	height: 15px;
+}
+
+.pathway-dash .pd-modules__item.is-completed .pd-modules__status {
+	background: var(--pd-mint);
+	border-color: var(--pd-mint);
+	color: var(--pd-navy);
+}
+
+.pathway-dash .pd-modules__title {
+	flex: 1;
+	min-width: 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--pd-navy);
+}
+
+.pathway-dash .pd-modules__progress {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 200px;
+	flex-shrink: 0;
+}
+
+.pathway-dash .pd-modules__progress .pd-progress {
+	display: block;
+	flex: 1;
+}
+
+.pathway-dash .pd-modules__progress .pd-progress__bar {
+	display: block;
+}
+
+.pathway-dash .pd-modules__pct {
+	width: 40px;
+	text-align: right;
+	font-size: 12px;
+	color: var(--pd-teal);
+}
+
+/* ---- Quiz scores ---- */
+
+.pathway-dash .pd-quiz-scores__empty {
+	color: var(--pd-teal);
+	font-size: 14px;
+}
+
+.pathway-dash .pd-quiz-scores__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pathway-dash .pd-quiz-scores__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 12px 0;
+	border-bottom: 1px solid var(--pd-border);
+}
+
+.pathway-dash .pd-quiz-scores__item:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.pathway-dash .pd-quiz-scores__title {
+	display: block;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--pd-navy);
+}
+
+.pathway-dash .pd-quiz-scores__meta {
+	display: block;
+	font-size: 12px;
+	color: var(--pd-teal);
+	margin-top: 2px;
+}
+
+.pathway-dash .pd-quiz-scores__badge {
+	flex-shrink: 0;
+	padding: 5px 12px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.pathway-dash .pd-quiz-scores__badge.is-passed {
+	background: var(--pd-mint-wash);
+	color: var(--pd-teal-dark);
+	border: 1px solid var(--pd-mint);
+}
+
+.pathway-dash .pd-quiz-scores__badge.is-failed {
+	background: #faf3f1;
+	color: var(--pd-danger);
+	border: 1px solid #ecd9d3;
+}
+
+/* ---- Tablet & mobile ---- */
+
+@media (max-width: 1024px) {
+	.pathway-dash .pd-analytics__row {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 767px) {
+	.pathway-dash .pd-modules__item {
+		flex-wrap: wrap;
+	}
+
+	.pathway-dash .pd-modules__progress {
+		width: 100%;
+		padding-left: 44px;
+	}
+}

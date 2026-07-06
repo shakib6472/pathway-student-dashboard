@@ -112,12 +112,13 @@ class Pathway_Dashboard_Stats {
 	}
 
 	/**
-	 * Sums time from ProPanel's ld_time_entries table.
+	 * Returns ProPanel's time entries table name when it exists.
 	 *
-	 * @param int $user_id User ID.
-	 * @return int|null Seconds, or null when the table does not exist.
+	 * Also used by the analytics service for the weekly chart.
+	 *
+	 * @return string|null Prefixed table name, or null when absent.
 	 */
-	private static function get_propanel_seconds( $user_id ) {
+	public static function time_entries_table() {
 		global $wpdb;
 
 		static $table_exists = null;
@@ -129,7 +130,21 @@ class Pathway_Dashboard_Stats {
 			$table_exists = ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) === $table );
 		}
 
-		if ( ! $table_exists ) {
+		return $table_exists ? $table : null;
+	}
+
+	/**
+	 * Sums time from ProPanel's ld_time_entries table.
+	 *
+	 * @param int $user_id User ID.
+	 * @return int|null Seconds, or null when the table does not exist.
+	 */
+	private static function get_propanel_seconds( $user_id ) {
+		global $wpdb;
+
+		$table = self::time_entries_table();
+
+		if ( null === $table ) {
 			return null;
 		}
 
