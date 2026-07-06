@@ -1,0 +1,295 @@
+/**
+ * Lesson Notes tab styles.
+ *
+ * Blocks: pd-notes (two-column layout), list column with search and
+ * lesson groups, viewer column with read/edit modes.
+ * Everything is scoped under .pathway-dash.
+ */
+
+.pathway-dash .pd-notes {
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: 16px;
+	align-items: start;
+}
+
+/* ---- List column ---- */
+
+.pathway-dash .pd-notes__list-col {
+	background: var(--pd-white);
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius);
+	box-shadow: var(--pd-shadow);
+	overflow: hidden;
+}
+
+.pathway-dash .pd-notes__search {
+	padding: 14px;
+	border-bottom: 1px solid var(--pd-border);
+}
+
+.pathway-dash .pd-notes__search-input {
+	width: 100%;
+	padding: 9px 14px;
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius-sm);
+	background: var(--pd-mint-wash);
+	font-family: var(--pd-font-body);
+	font-size: 14px;
+	color: var(--pd-teal-dark);
+	outline: none;
+	transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.pathway-dash .pd-notes__search-input:focus {
+	border-color: var(--pd-teal-light);
+	background: var(--pd-white);
+}
+
+.pathway-dash .pd-notes__search-input::placeholder {
+	color: var(--pd-teal);
+}
+
+.pathway-dash .pd-notes__groups {
+	max-height: 560px;
+	overflow-y: auto;
+	padding: 10px;
+}
+
+.pathway-dash .pd-notes__group-title {
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pd-teal);
+	padding: 12px 8px 6px;
+}
+
+.pathway-dash .pd-notes__item {
+	display: block;
+	width: 100%;
+	text-align: left;
+	padding: 10px 12px;
+	border: none;
+	border-radius: var(--pd-radius-sm);
+	background: transparent;
+	transition: background 0.15s ease;
+}
+
+.pathway-dash .pd-notes__item:hover,
+.pathway-dash .pd-notes__item:focus {
+	background: var(--pd-mint-wash);
+}
+
+.pathway-dash .pd-notes__item.is-active {
+	background: var(--pd-mint-wash);
+	box-shadow: inset 3px 0 0 var(--pd-navy);
+}
+
+.pathway-dash .pd-notes__item-title {
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--pd-navy);
+	margin-bottom: 2px;
+}
+
+.pathway-dash .pd-notes__item-excerpt {
+	display: block;
+	font-size: 12.5px;
+	color: var(--pd-teal-dark);
+	line-height: 1.4;
+	margin-bottom: 4px;
+}
+
+.pathway-dash .pd-notes__item-date {
+	display: block;
+	font-size: 11.5px;
+	color: var(--pd-teal);
+}
+
+.pathway-dash .pd-notes__no-results {
+	padding: 20px 12px;
+	text-align: center;
+	color: var(--pd-teal);
+	font-size: 14px;
+}
+
+/* ---- Viewer column ---- */
+
+.pathway-dash .pd-notes__viewer {
+	min-height: 380px;
+}
+
+.pathway-dash .pd-notes__viewer-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 330px;
+	color: var(--pd-teal);
+	font-size: 14px;
+}
+
+.pathway-dash .pd-notes__viewer-placeholder svg {
+	width: 32px;
+	height: 32px;
+	color: var(--pd-teal-light);
+}
+
+.pathway-dash .pd-notes__viewer-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--pd-border);
+	margin-bottom: 16px;
+}
+
+.pathway-dash .pd-notes__viewer-title {
+	font-size: 19px;
+	font-weight: 700;
+}
+
+.pathway-dash .pd-notes__viewer-sub {
+	font-size: 13px;
+	color: var(--pd-teal);
+	margin-top: 4px;
+}
+
+.pathway-dash .pd-notes__viewer-actions {
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}
+
+.pathway-dash .pd-notes__viewer-actions .pathway-dash__btn {
+	padding: 8px 16px;
+	font-size: 13px;
+}
+
+.pathway-dash .pd-notes__delete:hover,
+.pathway-dash .pd-notes__delete:focus,
+.pathway-dash .pd-notes__delete:active {
+	color: var(--pd-danger);
+	border-color: #ecd9d3;
+	background: #faf3f1;
+}
+
+.pathway-dash .pd-notes__viewer-body {
+	font-size: 14.5px;
+	line-height: 1.7;
+	color: var(--pd-teal-dark);
+}
+
+.pathway-dash .pd-notes__viewer-body p {
+	margin-bottom: 12px;
+}
+
+/* ---- Instructor response ---- */
+
+.pathway-dash .pd-notes__admin-response {
+	margin-top: 18px;
+	padding: 14px 16px;
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-mint);
+	border-radius: var(--pd-radius-sm);
+	font-size: 14px;
+	color: var(--pd-teal-dark);
+}
+
+.pathway-dash .pd-notes__admin-response-title {
+	font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 6px;
+}
+
+/* ---- Edit form ---- */
+
+.pathway-dash .pd-notes__field {
+	display: block;
+	margin-bottom: 14px;
+}
+
+.pathway-dash .pd-notes__field-label {
+	display: block;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--pd-teal-dark);
+	margin-bottom: 6px;
+}
+
+.pathway-dash .pd-notes__input,
+.pathway-dash .pd-notes__textarea {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius-sm);
+	background: var(--pd-white);
+	font-family: var(--pd-font-body);
+	font-size: 14px;
+	color: var(--pd-teal-dark);
+	outline: none;
+	transition: border-color 0.15s ease;
+	resize: vertical;
+}
+
+.pathway-dash .pd-notes__input:focus,
+.pathway-dash .pd-notes__textarea:focus {
+	border-color: var(--pd-teal-light);
+}
+
+/* TinyMCE wrapper (wp.editor) styled to match the design system. */
+
+.pathway-dash .pd-notes__edit-form .wp-editor-wrap {
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius-sm);
+	overflow: hidden;
+	background: var(--pd-white);
+}
+
+.pathway-dash .pd-notes__edit-form .wp-editor-wrap.tmce-active .wp-editor-area,
+.pathway-dash .pd-notes__edit-form .mce-tinymce {
+	border: none;
+	box-shadow: none;
+}
+
+.pathway-dash .pd-notes__edit-form .mce-toolbar-grp {
+	background: var(--pd-mint-wash);
+	border-bottom: 1px solid var(--pd-border);
+}
+
+.pathway-dash .pd-notes__form-error {
+	color: var(--pd-danger);
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+
+.pathway-dash .pd-notes__form-actions {
+	display: flex;
+	gap: 10px;
+}
+
+/* ---- Tablet & mobile ---- */
+
+@media (max-width: 1024px) {
+	.pathway-dash .pd-notes {
+		grid-template-columns: 1fr;
+	}
+
+	.pathway-dash .pd-notes__groups {
+		max-height: 320px;
+	}
+}
+
+@media (max-width: 767px) {
+	.pathway-dash .pd-notes__viewer-head {
+		flex-direction: column;
+	}
+
+	.pathway-dash .pd-notes__form-actions .pathway-dash__btn {
+		flex: 1;
+	}
+}

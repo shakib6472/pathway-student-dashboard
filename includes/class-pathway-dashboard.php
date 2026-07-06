@@ -39,6 +39,13 @@ final class Pathway_Dashboard {
 	public $shortcode;
 
 	/**
+	 * Notes AJAX handler.
+	 *
+	 * @var Pathway_Dashboard_Notes_Ajax
+	 */
+	public $notes_ajax;
+
+	/**
 	 * Returns the singleton instance.
 	 *
 	 * @return Pathway_Dashboard
@@ -55,8 +62,9 @@ final class Pathway_Dashboard {
 	 * Constructor. Wires up components and hooks.
 	 */
 	private function __construct() {
-		$this->assets    = new Pathway_Dashboard_Assets();
-		$this->shortcode = new Pathway_Dashboard_Shortcode();
+		$this->assets     = new Pathway_Dashboard_Assets();
+		$this->shortcode  = new Pathway_Dashboard_Shortcode();
+		$this->notes_ajax = new Pathway_Dashboard_Notes_Ajax();
 
 		add_action( 'admin_notices', array( $this, 'maybe_show_dependency_notice' ) );
 	}

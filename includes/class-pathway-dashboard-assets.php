@@ -31,14 +31,18 @@ class Pathway_Dashboard_Assets {
 	 *
 	 * @var string[]
 	 */
-	const TAB_STYLES = array( 'my-courses', 'progress', 'certificates' );
+	const TAB_STYLES = array( 'my-courses', 'progress', 'certificates', 'notes' );
 
 	/**
-	 * Tabs that ship their own script in assets/js/tabs/{slug}.js.
+	 * Tabs that ship their own script in assets/js/tabs/{slug}.js,
+	 * mapped to their script dependencies.
 	 *
-	 * @var string[]
+	 * @var array<string, string[]>
 	 */
-	const TAB_SCRIPTS = array( 'progress' );
+	const TAB_SCRIPTS = array(
+		'progress' => array( 'pathway-dash', 'pathway-dash-chartjs' ),
+		'notes'    => array( 'pathway-dash' ),
+	);
 
 	/**
 	 * Constructor.
@@ -94,11 +98,11 @@ class Pathway_Dashboard_Assets {
 			true
 		);
 
-		foreach ( self::TAB_SCRIPTS as $tab_slug ) {
+		foreach ( self::TAB_SCRIPTS as $tab_slug => $tab_deps ) {
 			wp_register_script(
 				'pathway-dash-tab-' . $tab_slug,
 				PATHWAY_DASH_URL . 'assets/js/tabs/' . $tab_slug . '.js',
-				array( 'pathway-dash', 'pathway-dash-chartjs' ),
+				$tab_deps,
 				PATHWAY_DASH_VERSION,
 				true
 			);
@@ -147,13 +151,18 @@ class Pathway_Dashboard_Assets {
 	public function enqueue_now() {
 		wp_enqueue_style( 'pathway-dash' );
 
+		// TinyMCE bundle for the note edit form (Lesson Notes tab).
+		if ( function_exists( 'wp_enqueue_editor' ) ) {
+			wp_enqueue_editor();
+		}
+
 		foreach ( self::TAB_STYLES as $tab_slug ) {
 			wp_enqueue_style( 'pathway-dash-tab-' . $tab_slug );
 		}
 
 		wp_enqueue_script( 'pathway-dash' );
 
-		foreach ( self::TAB_SCRIPTS as $tab_slug ) {
+		foreach ( array_keys( self::TAB_SCRIPTS ) as $tab_slug ) {
 			wp_enqueue_script( 'pathway-dash-tab-' . $tab_slug );
 		}
 	}
