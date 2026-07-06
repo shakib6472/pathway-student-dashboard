@@ -1,0 +1,204 @@
+/**
+ * Support tab styles.
+ *
+ * Blocks: pd-support (layout), pd-faq (accordion), pd-contact
+ * (contact card), pd-support-form (Fluent Forms restyling).
+ * Everything is scoped under .pathway-dash.
+ */
+
+.pathway-dash .pd-support {
+	display: grid;
+	grid-template-columns: 1.4fr 1fr;
+	gap: 16px;
+	align-items: start;
+}
+
+.pathway-dash .pd-support__side {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.pathway-dash .pd-support__heading {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 14px;
+}
+
+/* ---- FAQ accordion ---- */
+
+.pathway-dash .pd-faq__item {
+	border-bottom: 1px solid var(--pd-border);
+}
+
+.pathway-dash .pd-faq__item:last-child {
+	border-bottom: none;
+}
+
+.pathway-dash .pd-faq__question {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 14px 2px;
+	font-size: 14.5px;
+	font-weight: 500;
+	color: var(--pd-navy);
+	cursor: pointer;
+	list-style: none;
+	transition: color 0.15s ease;
+}
+
+.pathway-dash .pd-faq__question::-webkit-details-marker {
+	display: none;
+}
+
+.pathway-dash .pd-faq__question:hover {
+	color: var(--pd-teal-dark);
+}
+
+.pathway-dash .pd-faq__question svg {
+	width: 17px;
+	height: 17px;
+	color: var(--pd-teal);
+	flex-shrink: 0;
+	transition: transform 0.2s ease;
+}
+
+.pathway-dash .pd-faq__item[open] > .pd-faq__question svg {
+	transform: rotate(180deg);
+}
+
+.pathway-dash .pd-faq__answer {
+	padding: 0 2px 16px;
+	font-size: 14px;
+	line-height: 1.65;
+	color: var(--pd-teal-dark);
+}
+
+/* ---- Contact card ---- */
+
+.pathway-dash .pd-contact {
+	text-align: center;
+}
+
+.pathway-dash .pd-contact__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	background: var(--pd-mint-wash);
+	color: var(--pd-navy);
+	margin: 4px auto 12px;
+}
+
+.pathway-dash .pd-contact__icon svg {
+	width: 23px;
+	height: 23px;
+}
+
+.pathway-dash .pd-contact__text {
+	font-size: 13px;
+	color: var(--pd-teal);
+	margin-bottom: 10px;
+}
+
+.pathway-dash .pd-contact__email,
+.pathway-dash .pd-contact__email:visited {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--pd-navy);
+	word-break: break-all;
+}
+
+.pathway-dash .pd-contact__email:hover,
+.pathway-dash .pd-contact__email:focus,
+.pathway-dash .pd-contact__email:active {
+	color: var(--pd-teal-dark);
+}
+
+/* ---- Fluent Forms restyling ---- */
+
+.pathway-dash .pd-support-form .fluentform .ff-el-input--label label {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--pd-teal-dark);
+	margin-bottom: 6px;
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-el-form-control {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius-sm);
+	background: var(--pd-white);
+	font-family: var(--pd-font-body);
+	font-size: 14px;
+	color: var(--pd-teal-dark);
+	box-shadow: none;
+	transition: border-color 0.15s ease;
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-el-form-control:focus {
+	border-color: var(--pd-teal-light);
+	outline: none;
+	box-shadow: none;
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-el-group {
+	margin-bottom: 16px;
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-btn-submit {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 11px 22px;
+	border: none;
+	border-radius: var(--pd-radius-sm);
+	background: var(--pd-navy);
+	color: var(--pd-white);
+	font-family: var(--pd-font-body);
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-btn-submit:hover,
+.pathway-dash .pd-support-form .fluentform .ff-btn-submit:focus,
+.pathway-dash .pd-support-form .fluentform .ff-btn-submit:active {
+	background: var(--pd-navy-hover);
+	color: var(--pd-white);
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-message-success {
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-mint);
+	border-radius: var(--pd-radius-sm);
+	color: var(--pd-teal-dark);
+	font-size: 14px;
+	padding: 12px 16px;
+	box-shadow: none;
+}
+
+.pathway-dash .pd-support-form .fluentform .ff-el-is-error .ff-el-form-control {
+	border-color: var(--pd-danger);
+}
+
+.pathway-dash .pd-support-form .fluentform .error,
+.pathway-dash .pd-support-form .fluentform .ff-el-error-message {
+	color: var(--pd-danger);
+	font-size: 12.5px;
+}
+
+/* ---- Tablet & mobile ---- */
+
+@media (max-width: 1024px) {
+	.pathway-dash .pd-support {
+		grid-template-columns: 1fr;
+	}
+}

@@ -1,6 +1,9 @@
 <?php
 /**
- * Support tab. Full implementation lands in Phase 8.
+ * Support tab.
+ *
+ * FAQ accordion on the left; contact card and message form on
+ * the right.
  *
  * @var WP_User $user Current user.
  *
@@ -17,6 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p class="pathway-dash__page-subtitle"><?php esc_html_e( 'FAQs and help when you need it', 'pathway-student-dashboard' ); ?></p>
 </header>
 
-<div class="pathway-dash__card pathway-dash__placeholder">
-	<p><?php esc_html_e( 'Support options will appear here soon.', 'pathway-student-dashboard' ); ?></p>
+<div class="pd-support">
+
+	<div class="pd-support__main">
+		<?php pathway_dash_template( 'tabs/support/faq', array( 'faqs' => Pathway_Dashboard_Support::get_faqs() ) ); ?>
+	</div>
+
+	<div class="pd-support__side">
+		<?php pathway_dash_template( 'tabs/support/contact-card', array( 'contact' => Pathway_Dashboard_Support::get_contact() ) ); ?>
+		<?php pathway_dash_template( 'tabs/support/contact-form', array() ); ?>
+	</div>
+
 </div>

@@ -197,7 +197,8 @@
 	font-weight: 600;
 	letter-spacing: 0.03em;
 	transition: background 0.15s ease;
-}
+	padding: 0;
+} 
 
 .pathway-dash__avatar:hover,
 .pathway-dash__avatar:focus,

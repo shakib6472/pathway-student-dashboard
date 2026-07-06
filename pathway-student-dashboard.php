@@ -33,6 +33,7 @@ require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-certifica
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-notes.php';
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-resources.php';
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-account.php';
+require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-support.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-notes-ajax.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-account-ajax.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-assets.php';
