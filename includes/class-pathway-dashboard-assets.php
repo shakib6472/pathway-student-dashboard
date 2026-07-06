@@ -27,6 +27,13 @@ class Pathway_Dashboard_Assets {
 	const CHARTJS_VERSION = '4.4.9';
 
 	/**
+	 * Tabs that ship their own stylesheet in assets/css/tabs/{slug}.css.
+	 *
+	 * @var string[]
+	 */
+	const TAB_STYLES = array( 'my-courses' );
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -53,6 +60,15 @@ class Pathway_Dashboard_Assets {
 			array( 'pathway-dash-fonts' ),
 			PATHWAY_DASH_VERSION
 		);
+
+		foreach ( self::TAB_STYLES as $tab_slug ) {
+			wp_register_style(
+				'pathway-dash-tab-' . $tab_slug,
+				PATHWAY_DASH_URL . 'assets/css/tabs/' . $tab_slug . '.css',
+				array( 'pathway-dash' ),
+				PATHWAY_DASH_VERSION
+			);
+		}
 
 		// Registered now, enqueued from the Progress Analytics tab (Phase 3).
 		wp_register_script(
@@ -113,6 +129,11 @@ class Pathway_Dashboard_Assets {
 	 */
 	public function enqueue_now() {
 		wp_enqueue_style( 'pathway-dash' );
+
+		foreach ( self::TAB_STYLES as $tab_slug ) {
+			wp_enqueue_style( 'pathway-dash-tab-' . $tab_slug );
+		}
+
 		wp_enqueue_script( 'pathway-dash' );
 	}
 }
