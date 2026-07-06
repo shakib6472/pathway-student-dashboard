@@ -1,0 +1,98 @@
+/**
+ * Resources tab styles.
+ *
+ * Blocks: pd-resources (grid), pd-resource (single card).
+ * Everything is scoped under .pathway-dash.
+ */
+
+.pathway-dash .pd-resources {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+
+.pathway-dash .pd-resource {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 22px;
+}
+
+.pathway-dash .pd-resource__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	border-radius: var(--pd-radius-sm);
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-border);
+	color: var(--pd-teal-dark);
+	margin-bottom: 14px;
+}
+
+.pathway-dash .pd-resource__icon svg {
+	width: 21px;
+	height: 21px;
+}
+
+.pathway-dash .pd-resource__title {
+	font-size: 15px;
+	font-weight: 600;
+	margin-bottom: 6px;
+}
+
+.pathway-dash .pd-resource__desc {
+	font-size: 13px;
+	color: var(--pd-teal-dark);
+	line-height: 1.5;
+	margin-bottom: 12px;
+}
+
+.pathway-dash .pd-resource__meta {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 12px;
+	color: var(--pd-teal);
+	margin-bottom: 16px;
+}
+
+.pathway-dash .pd-resource__badge {
+	padding: 3px 9px;
+	border-radius: 999px;
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-mint);
+	color: var(--pd-teal-dark);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+}
+
+.pathway-dash .pd-resource__btn {
+	margin-top: auto;
+	padding: 9px 18px;
+	font-size: 13px;
+}
+
+.pathway-dash .pd-resource__btn svg {
+	width: 15px;
+	height: 15px;
+}
+
+/* ---- Tablet & mobile ---- */
+
+@media (max-width: 1024px) {
+	.pathway-dash .pd-resources {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 767px) {
+	.pathway-dash .pd-resources {
+		grid-template-columns: 1fr;
+	}
+
+	.pathway-dash .pd-resource__btn {
+		width: 100%;
+	}
+}

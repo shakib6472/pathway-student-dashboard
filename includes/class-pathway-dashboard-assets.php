@@ -31,7 +31,7 @@ class Pathway_Dashboard_Assets {
 	 *
 	 * @var string[]
 	 */
-	const TAB_STYLES = array( 'my-courses', 'progress', 'certificates', 'notes' );
+	const TAB_STYLES = array( 'my-courses', 'progress', 'certificates', 'notes', 'resources' );
 
 	/**
 	 * Tabs that ship their own script in assets/js/tabs/{slug}.js,
