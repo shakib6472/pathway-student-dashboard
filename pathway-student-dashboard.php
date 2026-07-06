@@ -12,7 +12,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       pathway-student-dashboard
  *
- * @package Pathway_Student_Dashboard
+ * @package Pathway_Student_Dashboard 
  */
 
 // Exit if accessed directly.
@@ -32,7 +32,9 @@ require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-analytics
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-certificates.php';
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-notes.php';
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-resources.php';
+require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-account.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-notes-ajax.php';
+require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-account-ajax.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-assets.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-shortcode.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard.php';

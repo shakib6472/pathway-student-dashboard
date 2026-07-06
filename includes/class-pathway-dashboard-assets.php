@@ -31,7 +31,7 @@ class Pathway_Dashboard_Assets {
 	 *
 	 * @var string[]
 	 */
-	const TAB_STYLES = array( 'my-courses', 'progress', 'certificates', 'notes', 'resources' );
+	const TAB_STYLES = array( 'my-courses', 'progress', 'certificates', 'notes', 'resources', 'account' );
 
 	/**
 	 * Tabs that ship their own script in assets/js/tabs/{slug}.js,
@@ -42,6 +42,7 @@ class Pathway_Dashboard_Assets {
 	const TAB_SCRIPTS = array(
 		'progress' => array( 'pathway-dash', 'pathway-dash-chartjs' ),
 		'notes'    => array( 'pathway-dash' ),
+		'account'  => array( 'pathway-dash' ),
 	);
 
 	/**

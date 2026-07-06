@@ -36,10 +36,8 @@ $pathway_dash_menu_tabs = array_filter(
 	<div class="pathway-dash__topbar-actions">
 
 		<span class="pathway-dash__greeting">
-			<?php
-			/* translators: %s: user first name. */
-			printf( esc_html__( 'Hi, %s', 'pathway-student-dashboard' ), esc_html( $first_name ) );
-			?>
+			<?php esc_html_e( 'Hi,', 'pathway-student-dashboard' ); ?>
+			<span id="pathway-dash-greeting-name"><?php echo esc_html( $first_name ); ?></span>
 		</span>
 
 		<button
@@ -53,15 +51,21 @@ $pathway_dash_menu_tabs = array_filter(
 		</button>
 
 		<div class="pathway-dash__avatar-wrap">
+			<?php $pathway_dash_photo = Pathway_Dashboard_Account::get_photo_url( $user->ID ); ?>
 			<button
 				type="button"
 				class="pathway-dash__avatar"
 				id="pathway-dash-avatar"
+				data-initials="<?php echo esc_attr( $initials ); ?>"
 				aria-haspopup="true"
 				aria-expanded="false"
 				aria-label="<?php esc_attr_e( 'Account menu', 'pathway-student-dashboard' ); ?>"
 			>
-				<?php echo esc_html( $initials ); ?>
+				<?php if ( $pathway_dash_photo ) : ?>
+					<img src="<?php echo esc_url( $pathway_dash_photo ); ?>" alt="" />
+				<?php else : ?>
+					<?php echo esc_html( $initials ); ?>
+				<?php endif; ?>
 			</button>
 
 			<div class="pathway-dash__avatar-menu" id="pathway-dash-avatar-menu" hidden>

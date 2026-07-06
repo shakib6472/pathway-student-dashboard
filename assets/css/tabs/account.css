@@ -1,0 +1,211 @@
+/**
+ * Account tab styles.
+ *
+ * Blocks: pd-account (layout), pd-account__card (form cards),
+ * pd-enrollment (enrollment info). Everything is scoped under
+ * .pathway-dash.
+ */
+
+.pathway-dash .pd-account {
+	display: grid;
+	grid-template-columns: 1fr 320px;
+	gap: 16px;
+	align-items: start;
+}
+
+.pathway-dash .pd-account__main {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.pathway-dash .pd-account__heading {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 18px;
+}
+
+/* ---- Photo row ---- */
+
+.pathway-dash .pd-account__photo-row {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid var(--pd-border);
+	margin-bottom: 20px;
+}
+
+.pathway-dash .pd-account__avatar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 72px;
+	height: 72px;
+	flex-shrink: 0;
+	border-radius: 50%;
+	background: var(--pd-navy);
+	color: var(--pd-white);
+	font-family: var(--pd-font-heading);
+	font-size: 22px;
+	font-weight: 600;
+	overflow: hidden;
+}
+
+.pathway-dash .pd-account__avatar img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.pathway-dash .pd-account__photo-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.pathway-dash .pd-account__photo-actions .pathway-dash__btn {
+	padding: 8px 16px;
+	font-size: 13px;
+}
+
+.pathway-dash .pd-account__photo-remove:hover,
+.pathway-dash .pd-account__photo-remove:focus,
+.pathway-dash .pd-account__photo-remove:active {
+	color: var(--pd-danger);
+	border-color: #ecd9d3;
+	background: #faf3f1;
+}
+
+/* ---- Form fields ---- */
+
+.pathway-dash .pd-account__grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px;
+}
+
+.pathway-dash .pd-account__field {
+	display: block;
+	margin-bottom: 14px;
+}
+
+.pathway-dash .pd-account__label {
+	display: block;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--pd-teal-dark);
+	margin-bottom: 6px;
+}
+
+.pathway-dash .pd-account__input {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius-sm);
+	background: var(--pd-white);
+	font-family: var(--pd-font-body);
+	font-size: 14px;
+	color: var(--pd-teal-dark);
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.pathway-dash .pd-account__input:focus {
+	border-color: var(--pd-teal-light);
+}
+
+.pathway-dash .pd-account__hint {
+	font-size: 12px;
+	color: var(--pd-teal);
+	margin-bottom: 12px;
+	flex-basis: 100%;
+}
+
+/* ---- Feedback messages ---- */
+
+.pathway-dash .pd-account__msg {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--pd-teal-dark);
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-mint);
+	border-radius: var(--pd-radius-sm);
+	padding: 9px 14px;
+	margin-bottom: 14px;
+	flex-basis: 100%;
+}
+
+.pathway-dash .pd-account__msg.is-error {
+	color: var(--pd-danger);
+	background: #faf3f1;
+	border-color: #ecd9d3;
+}
+
+/* ---- Enrollment info ---- */
+
+.pathway-dash .pd-enrollment__list {
+	margin: 0 0 14px;
+}
+
+.pathway-dash .pd-enrollment__row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 11px 0;
+	border-bottom: 1px solid var(--pd-border);
+}
+
+.pathway-dash .pd-enrollment__row:last-child {
+	border-bottom: none;
+}
+
+.pathway-dash .pd-enrollment__row dt {
+	font-size: 13px;
+	color: var(--pd-teal);
+}
+
+.pathway-dash .pd-enrollment__row dd {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--pd-navy);
+	text-align: right;
+}
+
+.pathway-dash .pd-enrollment__code {
+	color: var(--pd-teal);
+	font-weight: 400;
+}
+
+.pathway-dash .pd-enrollment__id {
+	font-family: monospace;
+	font-size: 13px;
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-mint);
+	border-radius: 6px;
+	padding: 3px 8px;
+	color: var(--pd-teal-dark);
+}
+
+/* ---- Tablet & mobile ---- */
+
+@media (max-width: 1024px) {
+	.pathway-dash .pd-account {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 767px) {
+	.pathway-dash .pd-account__grid {
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+
+	.pathway-dash .pd-account__card .pathway-dash__btn[type="submit"] {
+		width: 100%;
+	}
+}
