@@ -55,17 +55,12 @@ class Pathway_Dashboard_Shortcode {
 	}
 
 	/**
-	 * Renders a styled login prompt for logged-out visitors.
+	 * Renders the branded login screen for logged-out visitors,
+	 * redirecting back to this page after sign-in.
 	 *
 	 * @return string
 	 */
 	private function render_login_prompt() {
-		$login_url = wp_login_url( get_permalink() );
-
-		ob_start();
-
-		pathway_dash_template( 'login-prompt', array( 'login_url' => $login_url ) );
-
-		return ob_get_clean();
+		return pathway_dash()->login->render( (string) get_permalink() );
 	}
 }

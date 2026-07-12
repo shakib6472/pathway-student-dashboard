@@ -64,6 +64,33 @@ class Pathway_Dashboard_Analytics {
 	}
 
 	/**
+	 * Returns the user's current learning streak in days (max 7,
+	 * since it is computed from the weekly activity window).
+	 *
+	 * A day counts when it has any logged learning time. Today is
+	 * allowed to be empty without breaking yesterday's streak.
+	 *
+	 * @param int $user_id User ID.
+	 * @return int
+	 */
+	public static function get_streak_days( $user_id ) {
+		$days   = array_reverse( self::get_weekly_activity( $user_id ) ); // Newest first.
+		$streak = 0;
+
+		foreach ( $days as $index => $day ) {
+			if ( $day['minutes'] > 0 ) {
+				$streak++;
+			} elseif ( 0 === $index ) {
+				continue; // The day is young — today may still be empty.
+			} else {
+				break;
+			}
+		}
+
+		return $streak;
+	}
+
+	/**
 	 * Fetches raw time sessions (timestamp + seconds) since a moment.
 	 *
 	 * @param int $user_id User ID.

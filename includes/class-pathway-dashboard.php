@@ -39,6 +39,13 @@ final class Pathway_Dashboard {
 	public $shortcode;
 
 	/**
+	 * Login screen handler.
+	 *
+	 * @var Pathway_Dashboard_Login
+	 */
+	public $login;
+
+	/**
 	 * Notes AJAX handler.
 	 *
 	 * @var Pathway_Dashboard_Notes_Ajax
@@ -51,6 +58,20 @@ final class Pathway_Dashboard {
 	 * @var Pathway_Dashboard_Account_Ajax
 	 */
 	public $account_ajax;
+
+	/**
+	 * Notification event listeners.
+	 *
+	 * @var Pathway_Dashboard_Notifications_Hooks
+	 */
+	public $notifications_hooks;
+
+	/**
+	 * Notification AJAX handler.
+	 *
+	 * @var Pathway_Dashboard_Notifications_Ajax
+	 */
+	public $notifications_ajax;
 
 	/**
 	 * Returns the singleton instance.
@@ -69,12 +90,19 @@ final class Pathway_Dashboard {
 	 * Constructor. Wires up components and hooks.
 	 */
 	private function __construct() {
-		$this->assets       = new Pathway_Dashboard_Assets();
-		$this->shortcode    = new Pathway_Dashboard_Shortcode();
-		$this->notes_ajax   = new Pathway_Dashboard_Notes_Ajax();
-		$this->account_ajax = new Pathway_Dashboard_Account_Ajax();
+		$this->assets              = new Pathway_Dashboard_Assets();
+		$this->login               = new Pathway_Dashboard_Login();
+		$this->shortcode           = new Pathway_Dashboard_Shortcode();
+		$this->notes_ajax          = new Pathway_Dashboard_Notes_Ajax();
+		$this->account_ajax        = new Pathway_Dashboard_Account_Ajax();
+		$this->notifications_hooks = new Pathway_Dashboard_Notifications_Hooks();
+		$this->notifications_ajax  = new Pathway_Dashboard_Notifications_Ajax();
 
 		add_action( 'admin_notices', array( $this, 'maybe_show_dependency_notice' ) );
+
+		// Creates/updates the notifications table after plugin updates
+		// that ship a new schema version (activation covers installs).
+		add_action( 'init', array( 'Pathway_Dashboard_Notifications_DB', 'install' ) );
 	}
 
 	/**

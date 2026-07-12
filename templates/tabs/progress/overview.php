@@ -23,12 +23,19 @@ $pathway_dash_offset        = $pathway_dash_circumference * ( 1 - $pathway_dash_
 
 	<div class="pd-ring">
 		<svg viewBox="0 0 120 120" role="img" aria-label="<?php echo esc_attr( sprintf( /* translators: %d: percentage. */ __( '%d percent complete', 'pathway-student-dashboard' ), $pathway_dash_pct ) ); ?>">
+			<defs>
+				<linearGradient id="pathway-dash-ring-grad" x1="0" y1="0" x2="1" y2="1">
+					<stop offset="0" stop-color="#84b4b4" />
+					<stop offset="1" stop-color="#1aaeae" />
+				</linearGradient>
+			</defs>
 			<circle class="pd-ring__track" cx="60" cy="60" r="52" />
 			<circle
 				class="pd-ring__value"
 				cx="60"
 				cy="60"
 				r="52"
+				style="stroke: url(#pathway-dash-ring-grad);"
 				stroke-dasharray="<?php echo esc_attr( $pathway_dash_circumference ); ?>"
 				stroke-dashoffset="<?php echo esc_attr( round( $pathway_dash_offset, 2 ) ); ?>"
 			/>

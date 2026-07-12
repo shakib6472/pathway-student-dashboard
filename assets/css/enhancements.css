@@ -1,0 +1,601 @@
+/**
+ * Dashboard design enhancements: decorative touches and
+ * micro-interactions layered on top of the base styles.
+ * Everything is scoped under .pathway-dash.
+ */
+
+/* ---- Card hover lift ---- */
+
+.pathway-dash .pd-stats__card,
+.pathway-dash .pd-course,
+.pathway-dash .pd-resource,
+.pathway-dash .pd-cert,
+.pathway-dash .pd-resume {
+	transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.pathway-dash .pd-stats__card:hover,
+.pathway-dash .pd-course:hover,
+.pathway-dash .pd-resource:hover,
+.pathway-dash .pd-cert:hover,
+.pathway-dash .pd-resume:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 4px 10px rgba(0, 48, 84, 0.05), 0 12px 28px rgba(0, 48, 84, 0.09);
+}
+
+/* ---- Welcome title: yellow underline + sparkle ---- */
+
+.pathway-dash .pd-name-underline {
+	position: relative;
+	display: inline-block;
+}
+
+.pathway-dash .pd-name-underline__stroke {
+	position: absolute;
+	left: 0;
+	bottom: -7px;
+	width: 100%;
+	height: 11px;
+	color: var(--pd-yellow);
+}
+
+.pathway-dash .pd-welcome-sparkle {
+	display: inline-flex;
+	vertical-align: super;
+	margin-left: 10px;
+	color: var(--pd-accent);
+	animation: pd-twinkle 3s ease-in-out infinite;
+}
+
+.pathway-dash .pd-welcome-sparkle svg {
+	width: 17px;
+	height: 17px;
+}
+
+@keyframes pd-twinkle {
+	0%, 100% { transform: scale(1); opacity: 1; }
+	50% { transform: scale(0.72) rotate(18deg); opacity: 0.6; }
+}
+
+/* ---- Stats cards: icon circles ---- */
+
+.pathway-dash .pd-stats__card {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.pathway-dash .pd-stats__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	flex-shrink: 0;
+	border-radius: 50%;
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-border);
+	color: var(--pd-teal-dark);
+}
+
+.pathway-dash .pd-stats__icon svg {
+	width: 19px;
+	height: 19px;
+}
+
+.pathway-dash .pd-stats__body {
+	min-width: 0;
+}
+
+.pathway-dash .pd-stats__label {
+	margin-bottom: 4px;
+}
+
+/* ---- Resume card: soft decorative rings ---- */
+
+.pathway-dash .pd-resume {
+	overflow: hidden;
+}
+
+.pathway-dash .pd-resume::before {
+	content: "";
+	position: absolute;
+	top: -70px;
+	right: -70px;
+	width: 210px;
+	height: 210px;
+	border-radius: 50%;
+	background: var(--pd-mint-wash);
+}
+
+.pathway-dash .pd-resume::after {
+	content: "";
+	position: absolute;
+	top: -30px;
+	right: 60px;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	border: 2px solid var(--pd-mint);
+	opacity: 0.45;
+}
+
+.pathway-dash .pd-resume {
+	position: relative;
+}
+
+.pathway-dash .pd-resume > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* ---- Progress bars & ring: smoother sweep (JS re-triggers) ---- */
+
+.pathway-dash .pd-progress__bar {
+	transition: width 0.9s cubic-bezier(0.22, 0.8, 0.36, 1);
+}
+
+.pathway-dash .pd-ring__value {
+	transition: stroke-dashoffset 1s cubic-bezier(0.22, 0.8, 0.36, 1);
+}
+
+/* ---- Certificates: celebration for earned cards ---- */
+
+.pathway-dash .pd-cert.is-earned .pd-cert__preview::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background-image:
+		radial-gradient(circle 3px at 16% 30%, rgba(26, 174, 174, 0.55) 98%, transparent),
+		radial-gradient(circle 2.5px at 80% 20%, rgba(244, 197, 66, 0.75) 98%, transparent),
+		radial-gradient(circle 2px at 28% 74%, rgba(0, 48, 84, 0.35) 98%, transparent),
+		radial-gradient(circle 3px at 86% 68%, rgba(168, 216, 204, 0.95) 98%, transparent),
+		radial-gradient(circle 2px at 56% 12%, rgba(26, 174, 174, 0.5) 98%, transparent),
+		radial-gradient(circle 2.5px at 66% 84%, rgba(244, 197, 66, 0.6) 98%, transparent),
+		radial-gradient(circle 2px at 10% 58%, rgba(244, 197, 66, 0.5) 98%, transparent),
+		radial-gradient(circle 2.5px at 42% 42%, rgba(132, 180, 180, 0.5) 98%, transparent);
+}
+
+.pathway-dash .pd-cert.is-earned .pd-cert__medal {
+	animation: pd-medal-pop 2.8s ease-in-out infinite;
+}
+
+@keyframes pd-medal-pop {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(168, 216, 204, 0.55); }
+	50% { box-shadow: 0 0 0 10px rgba(168, 216, 204, 0); }
+}
+
+/* ---- Empty states: friendly doodle ---- */
+
+.pathway-dash .pd-empty {
+	flex-direction: column;
+}
+
+.pathway-dash .pd-empty::before {
+	content: "";
+	width: 54px;
+	height: 54px;
+	margin-bottom: 10px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2384b4b4' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/%3E%3C/svg%3E") center / contain no-repeat;
+	opacity: 0.8;
+}
+
+/* ---- Sidebar help card ---- */
+
+.pathway-dash .pd-sidebar-help {
+	margin-top: auto;
+	padding: 16px 14px 14px;
+	background: linear-gradient(165deg, var(--pd-mint-wash), #e4f2ed);
+	border: 1px solid var(--pd-border);
+	border-radius: var(--pd-radius-sm);
+}
+
+.pathway-dash .pd-sidebar-help__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	background: var(--pd-white);
+	border: 1px solid var(--pd-border);
+	color: var(--pd-teal-dark);
+	margin-bottom: 10px;
+}
+
+.pathway-dash .pd-sidebar-help__icon svg {
+	width: 16px;
+	height: 16px;
+}
+
+.pathway-dash .pd-sidebar-help__title {
+	font-family: var(--pd-font-heading);
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--pd-navy);
+	margin-bottom: 3px;
+}
+
+.pathway-dash .pd-sidebar-help__text {
+	font-size: 12px;
+	line-height: 1.45;
+	color: var(--pd-teal);
+	margin-bottom: 12px;
+}
+
+.pathway-dash .pd-sidebar-help__btn {
+	width: 100%;
+	padding: 8px 12px;
+	font-size: 12.5px;
+}
+
+/* ---- Bell wiggle when unread ---- */
+
+.pathway-dash .pathway-dash__bell:has(.pathway-dash__bell-badge:not([hidden])) svg {
+	transform-origin: top center;
+	animation: pd-bell-ring 1.7s ease 0.9s 2;
+}
+
+@keyframes pd-bell-ring {
+	0%, 100% { transform: rotate(0); }
+	12% { transform: rotate(-14deg); }
+	26% { transform: rotate(11deg); }
+	40% { transform: rotate(-8deg); }
+	54% { transform: rotate(5deg); }
+	70% { transform: rotate(-2deg); }
+}
+
+/* ---- Tab switch: staggered card entrance ---- */
+
+.pathway-dash .pathway-dash__panel.is-active > * {
+	animation: pd-panel-in 0.32s ease both;
+}
+
+.pathway-dash .pathway-dash__panel.is-active > *:nth-child(2) { animation-delay: 0.06s; }
+.pathway-dash .pathway-dash__panel.is-active > *:nth-child(3) { animation-delay: 0.12s; }
+.pathway-dash .pathway-dash__panel.is-active > *:nth-child(4) { animation-delay: 0.18s; }
+.pathway-dash .pathway-dash__panel.is-active > *:nth-child(5) { animation-delay: 0.24s; }
+.pathway-dash .pathway-dash__panel.is-active > *:nth-child(n+6) { animation-delay: 0.3s; }
+
+@keyframes pd-panel-in {
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: none; }
+}
+
+/* ---- Progress bar shine sweep ---- */
+
+.pathway-dash .pd-progress__bar {
+	position: relative;
+	overflow: hidden;
+}
+
+.pathway-dash .pd-progress__bar::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.55) 50%, transparent 68%);
+	transform: translateX(-100%);
+	animation: pd-shine 3.4s ease-in-out 1.2s infinite;
+}
+
+@keyframes pd-shine {
+	0% { transform: translateX(-100%); }
+	55%, 100% { transform: translateX(100%); }
+}
+
+/* ---- Learning streak chip ---- */
+
+.pathway-dash .pd-streak {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	margin-top: 12px;
+	padding: 6px 14px;
+	border-radius: 999px;
+	background: var(--pd-mint-wash);
+	border: 1px solid var(--pd-mint);
+	color: var(--pd-navy);
+	font-size: 12.5px;
+	font-weight: 600;
+}
+
+.pathway-dash .pd-streak svg {
+	width: 15px;
+	height: 15px;
+	color: var(--pd-yellow);
+	animation: pd-flame 1.8s ease-in-out infinite;
+}
+
+@keyframes pd-flame {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.15) rotate(-3deg); }
+}
+
+/* ---- Avatar rings ---- */
+
+.pathway-dash .pathway-dash__avatar,
+.pathway-dash .pd-account__avatar {
+	box-shadow: 0 0 0 2px var(--pd-white), 0 0 0 4px var(--pd-mint);
+}
+
+/* ---- Content area: whisper-subtle dot grid ---- */
+
+.pathway-dash .pathway-dash__content {
+	background-image: radial-gradient(rgba(108, 144, 144, 0.09) 1.1px, transparent 1.1px);
+	background-size: 26px 26px;
+}
+
+/* ---- Custom scrollbars (notes list, bell panel) ---- */
+
+.pathway-dash .pd-notes__groups,
+.pathway-dash .pathway-dash__bell-list {
+	scrollbar-width: thin;
+	scrollbar-color: var(--pd-mint) transparent;
+}
+
+.pathway-dash .pd-notes__groups::-webkit-scrollbar,
+.pathway-dash .pathway-dash__bell-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.pathway-dash .pd-notes__groups::-webkit-scrollbar-thumb,
+.pathway-dash .pathway-dash__bell-list::-webkit-scrollbar-thumb {
+	background: var(--pd-mint);
+	border-radius: 3px;
+}
+
+.pathway-dash .pd-notes__groups::-webkit-scrollbar-track,
+.pathway-dash .pathway-dash__bell-list::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* ---- Button micro-interactions ---- */
+
+.pathway-dash .pathway-dash__btn {
+	transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.pathway-dash .pathway-dash__btn--primary:hover {
+	box-shadow: 0 6px 18px rgba(0, 48, 84, 0.22);
+}
+
+.pathway-dash .pathway-dash__btn:active {
+	transform: scale(0.97);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1024px) and (min-width: 768px) {
+	/* Icon-only sidebar has no room for the help card. */
+	.pathway-dash .pd-sidebar-help {
+		display: none;
+	}
+}
+
+@media (max-width: 767px) {
+	.pathway-dash .pd-welcome-sparkle {
+		display: none;
+	}
+}
+
+/* ---- Decorative sprinkle layer ----
+ * Sparkles, dot clusters, tick marks, and squiggles (like the
+ * login promo banner) sprinkled across the dashboard. All drawn
+ * from data-URI SVGs stored in custom properties below. */
+
+.pathway-dash {
+	--pd-deco-sparkle-navy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23003054'%3E%3Cpath d='M12 1C13 8 16 11 23 12C16 13 13 16 12 23C11 16 8 13 1 12C8 11 11 8 12 1Z'/%3E%3C/svg%3E");
+	--pd-deco-sparkle-teal: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2384b4b4'%3E%3Cpath d='M12 1C13 8 16 11 23 12C16 13 13 16 12 23C11 16 8 13 1 12C8 11 11 8 12 1Z'/%3E%3C/svg%3E");
+	--pd-deco-sparkle-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231aaeae'%3E%3Cpath d='M12 1C13 8 16 11 23 12C16 13 13 16 12 23C11 16 8 13 1 12C8 11 11 8 12 1Z'/%3E%3C/svg%3E");
+	--pd-deco-sparkle-yellow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f4c542'%3E%3Cpath d='M12 1C13 8 16 11 23 12C16 13 13 16 12 23C11 16 8 13 1 12C8 11 11 8 12 1Z'/%3E%3C/svg%3E");
+	--pd-deco-dots: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='%2384b4b4'%3E%3Ccircle cx='6' cy='10' r='3'/%3E%3Ccircle cx='22' cy='4' r='2.4'/%3E%3Ccircle cx='34' cy='16' r='3.4'/%3E%3Ccircle cx='14' cy='28' r='2.2'/%3E%3Ccircle cx='30' cy='34' r='2.8'/%3E%3C/svg%3E");
+	--pd-deco-ticks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M8 34L18 14' fill='none' stroke='%23f4c542' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M24 36L34 18' fill='none' stroke='%23f4c542' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+	--pd-deco-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M4 9C45 13 95 3 135 7S185 11 196 6' fill='none' stroke='%231aaeae' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Every tab header: dot cluster + floating sparkle on the right. */
+
+.pathway-dash .pathway-dash__page-header {
+	position: relative;
+}
+
+.pathway-dash .pathway-dash__page-header::after {
+	content: "";
+	position: absolute;
+	right: 6px;
+	top: 2px;
+	width: 42px;
+	height: 42px;
+	background: var(--pd-deco-dots) center / contain no-repeat;
+	opacity: 0.75;
+	pointer-events: none;
+}
+
+.pathway-dash .pathway-dash__page-header::before {
+	content: "";
+	position: absolute;
+	right: 66px;
+	top: 30px;
+	width: 15px;
+	height: 15px;
+	background: var(--pd-deco-sparkle-accent) center / contain no-repeat;
+	pointer-events: none;
+	animation: pd-twinkle 3.6s ease-in-out 0.6s infinite;
+}
+
+/* Resume card: sparkle by the eyebrow + ticks above the button. */
+
+.pathway-dash .pd-resume__eyebrow::before {
+	content: "";
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	margin-right: 7px;
+	vertical-align: -1px;
+	background: var(--pd-deco-sparkle-yellow) center / contain no-repeat;
+}
+
+.pathway-dash .pd-resume__action {
+	position: relative;
+}
+
+.pathway-dash .pd-resume__action::before {
+	content: "";
+	position: absolute;
+	top: -32px;
+	right: -4px;
+	width: 26px;
+	height: 26px;
+	background: var(--pd-deco-ticks) center / contain no-repeat;
+	pointer-events: none;
+}
+
+/* Section headings: teal squiggle underline. */
+
+.pathway-dash .pd-course-list__heading {
+	position: relative;
+	display: inline-block;
+}
+
+.pathway-dash .pd-course-list__heading::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -9px;
+	width: 105px;
+	height: 8px;
+	background: var(--pd-deco-squiggle) 0 0 / 100% 100% no-repeat;
+}
+
+/* Progress tab: sparkles around the ring, dots by the chart. */
+
+.pathway-dash .pd-ring-card {
+	position: relative;
+}
+
+.pathway-dash .pd-ring-card::before {
+	content: "";
+	position: absolute;
+	top: 18px;
+	right: 20px;
+	width: 17px;
+	height: 17px;
+	background: var(--pd-deco-sparkle-navy) center / contain no-repeat;
+	animation: pd-twinkle 4s ease-in-out infinite;
+}
+
+.pathway-dash .pd-ring-card::after {
+	content: "";
+	position: absolute;
+	left: 16px;
+	bottom: 14px;
+	width: 34px;
+	height: 34px;
+	background: var(--pd-deco-dots) center / contain no-repeat;
+	opacity: 0.6;
+}
+
+.pathway-dash .pd-chart-card {
+	position: relative;
+}
+
+.pathway-dash .pd-chart-card::after {
+	content: "";
+	position: absolute;
+	top: 20px;
+	right: 22px;
+	width: 14px;
+	height: 14px;
+	background: var(--pd-deco-sparkle-teal) center / contain no-repeat;
+	animation: pd-twinkle 4.4s ease-in-out 1.2s infinite;
+}
+
+/* Earned certificates: yellow ticks by the title. */
+
+.pathway-dash .pd-cert.is-earned .pd-cert__body {
+	position: relative;
+}
+
+.pathway-dash .pd-cert.is-earned .pd-cert__body::after {
+	content: "";
+	position: absolute;
+	top: 16px;
+	right: 18px;
+	width: 24px;
+	height: 24px;
+	background: var(--pd-deco-ticks) center / contain no-repeat;
+}
+
+/* Contact Support card: sparkle by the icon. */
+
+.pathway-dash .pd-contact {
+	position: relative;
+}
+
+.pathway-dash .pd-contact::before {
+	content: "";
+	position: absolute;
+	top: 18px;
+	right: 24px;
+	width: 16px;
+	height: 16px;
+	background: var(--pd-deco-sparkle-yellow) center / contain no-repeat;
+	animation: pd-twinkle 3.8s ease-in-out 0.4s infinite;
+}
+
+/* Empty states: dots beside the doodle. */
+
+.pathway-dash .pd-empty {
+	position: relative;
+}
+
+.pathway-dash .pd-empty::after {
+	content: "";
+	position: absolute;
+	top: 26px;
+	right: 30px;
+	width: 34px;
+	height: 34px;
+	background: var(--pd-deco-dots) center / contain no-repeat;
+	opacity: 0.55;
+}
+
+/* Sidebar help card: sparkle in the corner. */
+
+.pathway-dash .pd-sidebar-help {
+	position: relative;
+}
+
+.pathway-dash .pd-sidebar-help::after {
+	content: "";
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: 14px;
+	height: 14px;
+	background: var(--pd-deco-sparkle-accent) center / contain no-repeat;
+	animation: pd-twinkle 4.2s ease-in-out 0.8s infinite;
+}
+
+/* Keep small screens clean. */
+
+@media (max-width: 767px) {
+	.pathway-dash .pathway-dash__page-header::before,
+	.pathway-dash .pathway-dash__page-header::after,
+	.pathway-dash .pd-resume__action::before,
+	.pathway-dash .pd-empty::after {
+		display: none;
+	}
+}
+
+/* ---- Accessibility: respect reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+	.pathway-dash *,
+	.pathway-dash *::before,
+	.pathway-dash *::after {
+		animation: none !important;
+		transition: none !important;
+	}
+}

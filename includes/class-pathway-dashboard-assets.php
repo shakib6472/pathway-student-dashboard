@@ -73,6 +73,43 @@ class Pathway_Dashboard_Assets {
 			PATHWAY_DASH_VERSION
 		);
 
+		wp_register_style(
+			'pathway-dash-notifications',
+			PATHWAY_DASH_URL . 'assets/css/notifications.css',
+			array( 'pathway-dash' ),
+			PATHWAY_DASH_VERSION
+		);
+
+		wp_register_style(
+			'pathway-dash-enhance',
+			PATHWAY_DASH_URL . 'assets/css/enhancements.css',
+			array( 'pathway-dash' ),
+			PATHWAY_DASH_VERSION
+		);
+
+		wp_register_script(
+			'pathway-dash-enhance',
+			PATHWAY_DASH_URL . 'assets/js/enhancements.js',
+			array( 'pathway-dash' ),
+			PATHWAY_DASH_VERSION,
+			true
+		);
+
+		wp_register_style(
+			'pathway-dash-login',
+			PATHWAY_DASH_URL . 'assets/css/login.css',
+			array( 'pathway-dash-fonts' ),
+			PATHWAY_DASH_VERSION
+		);
+
+		wp_register_script(
+			'pathway-dash-login',
+			PATHWAY_DASH_URL . 'assets/js/login.js',
+			array(),
+			PATHWAY_DASH_VERSION,
+			true
+		);
+
 		foreach ( self::TAB_STYLES as $tab_slug ) {
 			wp_register_style(
 				'pathway-dash-tab-' . $tab_slug,
@@ -95,6 +132,14 @@ class Pathway_Dashboard_Assets {
 			'pathway-dash',
 			PATHWAY_DASH_URL . 'assets/js/dashboard.js',
 			array(),
+			PATHWAY_DASH_VERSION,
+			true
+		);
+
+		wp_register_script(
+			'pathway-dash-notifications',
+			PATHWAY_DASH_URL . 'assets/js/notifications.js',
+			array( 'pathway-dash' ),
 			PATHWAY_DASH_VERSION,
 			true
 		);
@@ -137,8 +182,23 @@ class Pathway_Dashboard_Assets {
 
 		$post = get_post();
 
-		if ( $post && has_shortcode( (string) $post->post_content, 'pathway_dashboard' ) ) {
+		if ( ! $post ) {
+			return;
+		}
+
+		$content = (string) $post->post_content;
+
+		if ( has_shortcode( $content, 'pathway_dashboard' ) ) {
 			$this->enqueue_now();
+
+			// Logged-out visitors of the dashboard page get the login screen.
+			if ( ! is_user_logged_in() ) {
+				$this->enqueue_login();
+			}
+		}
+
+		if ( has_shortcode( $content, 'pathway_login' ) ) {
+			$this->enqueue_login();
 		}
 	}
 
@@ -157,14 +217,30 @@ class Pathway_Dashboard_Assets {
 			wp_enqueue_editor();
 		}
 
+		wp_enqueue_style( 'pathway-dash-notifications' );
+
 		foreach ( self::TAB_STYLES as $tab_slug ) {
 			wp_enqueue_style( 'pathway-dash-tab-' . $tab_slug );
 		}
 
+		wp_enqueue_style( 'pathway-dash-enhance' );
+
 		wp_enqueue_script( 'pathway-dash' );
+		wp_enqueue_script( 'pathway-dash-notifications' );
+		wp_enqueue_script( 'pathway-dash-enhance' );
 
 		foreach ( array_keys( self::TAB_SCRIPTS ) as $tab_slug ) {
 			wp_enqueue_script( 'pathway-dash-tab-' . $tab_slug );
 		}
+	}
+
+	/**
+	 * Enqueues only the login screen assets.
+	 *
+	 * @return void
+	 */
+	public function enqueue_login() {
+		wp_enqueue_style( 'pathway-dash-login' );
+		wp_enqueue_script( 'pathway-dash-login' );
 	}
 }

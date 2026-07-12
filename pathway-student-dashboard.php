@@ -36,9 +36,16 @@ require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-account.p
 require_once PATHWAY_DASH_DIR . 'includes/data/class-pathway-dashboard-support.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-notes-ajax.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-account-ajax.php';
+require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-db.php';
+require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-email.php';
+require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-hooks.php';
+require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-ajax.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-assets.php';
+require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-login.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-shortcode.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard.php';
+
+register_activation_hook( __FILE__, array( 'Pathway_Dashboard_Notifications_DB', 'install' ) );
 
 /**
  * Returns the main plugin instance.

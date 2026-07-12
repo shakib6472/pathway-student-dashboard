@@ -28,4 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span><?php echo esc_html( $tab['label'] ); ?></span>
 		</button>
 	<?php endforeach; ?>
+
+	<div class="pd-sidebar-help">
+		<span class="pd-sidebar-help__icon"><?php echo pathway_dash_icon( 'help' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?></span>
+		<p class="pd-sidebar-help__title"><?php esc_html_e( 'Need help?', 'pathway-student-dashboard' ); ?></p>
+		<p class="pd-sidebar-help__text"><?php esc_html_e( 'Questions about your course? We are here for you.', 'pathway-student-dashboard' ); ?></p>
+		<button type="button" class="pathway-dash__btn pathway-dash__btn--primary pd-sidebar-help__btn" data-pathway-tab="support">
+			<?php esc_html_e( 'Contact Support', 'pathway-student-dashboard' ); ?>
+		</button>
+	</div>
 </nav>

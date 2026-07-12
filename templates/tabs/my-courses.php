@@ -33,14 +33,53 @@ if ( $pathway_dash_continue ) {
 	$pathway_dash_subtitle = __( 'Your training at a glance', 'pathway-student-dashboard' );
 }
 ?>
+<?php
+// First name wrapped with a hand-drawn yellow underline + sparkle.
+$pathway_dash_name_html = '<span class="pd-name-underline">'
+	. esc_html( pathway_dash_get_user_first_name( $user ) )
+	. '<svg class="pd-name-underline__stroke" viewBox="0 0 200 14" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true"><path d="M4 9 C 45 13, 95 3, 135 7 S 185 11, 196 6" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>'
+	. '</span>'
+	. '<span class="pd-welcome-sparkle">' . pathway_dash_icon( 'sparkle' ) . '</span>';
+
+$pathway_dash_kses = array(
+	'span' => array( 'class' => true ),
+	'svg'  => array(
+		'class'               => true,
+		'viewbox'             => true,
+		'xmlns'               => true,
+		'preserveaspectratio' => true,
+		'aria-hidden'         => true,
+		'focusable'           => true,
+		'fill'                => true,
+	),
+	'path' => array(
+		'd'              => true,
+		'fill'           => true,
+		'stroke'         => true,
+		'stroke-width'   => true,
+		'stroke-linecap' => true,
+	),
+);
+?>
 <header class="pathway-dash__page-header">
 	<h1 class="pathway-dash__page-title">
 		<?php
 		/* translators: %s: user first name. */
-		printf( esc_html__( 'Welcome back, %s', 'pathway-student-dashboard' ), esc_html( pathway_dash_get_user_first_name( $user ) ) );
+		echo wp_kses( sprintf( __( 'Welcome back, %s', 'pathway-student-dashboard' ), $pathway_dash_name_html ), $pathway_dash_kses );
 		?>
 	</h1>
 	<p class="pathway-dash__page-subtitle"><?php echo esc_html( $pathway_dash_subtitle ); ?></p>
+
+	<?php $pathway_dash_streak = Pathway_Dashboard_Analytics::get_streak_days( $user->ID ); ?>
+	<?php if ( $pathway_dash_streak >= 2 ) : ?>
+		<span class="pd-streak">
+			<?php echo pathway_dash_icon( 'flame' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?>
+			<?php
+			/* translators: %d: consecutive learning days. */
+			printf( esc_html__( '%d-day learning streak!', 'pathway-student-dashboard' ), (int) $pathway_dash_streak );
+			?>
+		</span>
+	<?php endif; ?>
 </header>
 
 <?php if ( empty( $pathway_dash_courses ) ) : ?>

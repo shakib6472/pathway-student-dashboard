@@ -40,15 +40,7 @@ $pathway_dash_menu_tabs = array_filter(
 			<span id="pathway-dash-greeting-name"><?php echo esc_html( $first_name ); ?></span>
 		</span>
 
-		<button
-			type="button"
-			class="pathway-dash__bell"
-			id="pathway-dash-bell"
-			aria-label="<?php esc_attr_e( 'Notifications', 'pathway-student-dashboard' ); ?>"
-		>
-			<?php echo pathway_dash_icon( 'bell' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?>
-			<span class="pathway-dash__bell-badge" hidden></span>
-		</button>
+		<?php pathway_dash_template( 'partials/notifications', array( 'user' => $user ) ); ?>
 
 		<div class="pathway-dash__avatar-wrap">
 			<?php $pathway_dash_photo = Pathway_Dashboard_Account::get_photo_url( $user->ID ); ?>
@@ -81,7 +73,7 @@ $pathway_dash_menu_tabs = array_filter(
 					</a>
 				<?php endforeach; ?>
 
-				<a class="pathway-dash__avatar-menu-item pathway-dash__avatar-menu-item--logout" href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>">
+				<a class="pathway-dash__avatar-menu-item pathway-dash__avatar-menu-item--logout" href="<?php echo esc_url( wp_logout_url( add_query_arg( 'loggedout', 'true', pathway_dash()->login->get_login_url() ) ) ); ?>">
 					<?php echo pathway_dash_icon( 'logout' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?>
 					<span><?php esc_html_e( 'Log Out', 'pathway-student-dashboard' ); ?></span>
 				</a>
