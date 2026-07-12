@@ -28,7 +28,7 @@ class Pathway_Dashboard_Login {
 	/**
 	 * Default promo (student) photo for the bottom banner.
 	 */
-	const DEFAULT_PROMO_URL = 'http://localhost/learn.pathway/wp-content/uploads/2026/07/lady.png';
+	const DEFAULT_PROMO_URL = 'https://learn.pathway2da.com/wp-content/uploads/2026/07/lady.png';
 
 	/**
 	 * Default "Learn More" target.
@@ -73,38 +73,70 @@ class Pathway_Dashboard_Login {
 	}
 
 	/**
-	 * Front-end access guard:
-	 * - Logged-out visitors of a dashboard page are sent to the login page.
+	 * Site-wide front-end access guard:
+	 * - Logged-out visitors of ANY front-end page are sent to the
+	 *   login page (this portal has no public pages).
 	 * - Logged-in visitors of the login page are sent to the dashboard.
-	 *
-	 * Detects the shortcodes in post content, with a fallback scan of
-	 * Elementor's data meta for pages built with an Elementor widget.
 	 *
 	 * @return void
 	 */
 	public function guard_pages() {
-		if ( is_admin() || ! is_singular() ) {
+		// Never touch admin, feeds, robots, embeds, or REST requests.
+		if ( is_admin() || is_feed() || is_robots() || is_embed() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
 			return;
+		}
+
+		if ( is_user_logged_in() ) {
+			if ( $this->is_login_page() ) {
+				wp_safe_redirect( $this->get_dashboard_url() );
+				exit;
+			}
+
+			return;
+		}
+
+		if ( $this->is_login_page() ) {
+			return;
+		}
+
+		/**
+		 * Filters whether the current request requires login.
+		 * Return false to make a specific page publicly accessible.
+		 *
+		 * @param bool $require_login Whether to redirect logged-out visitors.
+		 */
+		if ( ! apply_filters( 'pathway_dash_require_login', true ) ) {
+			return;
+		}
+
+		wp_safe_redirect( $this->get_login_url() );
+		exit;
+	}
+
+	/**
+	 * Whether the current request is the login page.
+	 *
+	 * True when the page contains [pathway_login], or when its
+	 * permalink matches the configured login URL (loop safety).
+	 *
+	 * @return bool
+	 */
+	private function is_login_page() {
+		if ( ! is_singular() ) {
+			return false;
 		}
 
 		$post = get_post();
 
 		if ( ! $post ) {
-			return;
+			return false;
 		}
 
-		$has_dashboard = $this->page_uses_shortcode( $post, 'pathway_dashboard' );
-		$has_login     = $this->page_uses_shortcode( $post, 'pathway_login' );
-
-		if ( $has_dashboard && ! $has_login && ! is_user_logged_in() ) {
-			wp_safe_redirect( $this->get_login_url() );
-			exit;
+		if ( $this->page_uses_shortcode( $post, 'pathway_login' ) ) {
+			return true;
 		}
 
-		if ( $has_login && is_user_logged_in() ) {
-			wp_safe_redirect( $this->get_dashboard_url() );
-			exit;
-		}
+		return untrailingslashit( (string) get_permalink( $post ) ) === untrailingslashit( $this->get_login_url() );
 	}
 
 	/**

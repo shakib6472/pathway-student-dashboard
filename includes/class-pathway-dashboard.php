@@ -74,6 +74,27 @@ final class Pathway_Dashboard {
 	public $notifications_ajax;
 
 	/**
+	 * Courses REST endpoint.
+	 *
+	 * @var Pathway_Dashboard_Api_Courses
+	 */
+	public $api_courses;
+
+	/**
+	 * Enrollment webhook endpoint.
+	 *
+	 * @var Pathway_Dashboard_Api_Enroll
+	 */
+	public $api_enroll;
+
+	/**
+	 * Admin settings page.
+	 *
+	 * @var Pathway_Dashboard_Settings_Page
+	 */
+	public $settings_page;
+
+	/**
 	 * Returns the singleton instance.
 	 *
 	 * @return Pathway_Dashboard
@@ -97,6 +118,9 @@ final class Pathway_Dashboard {
 		$this->account_ajax        = new Pathway_Dashboard_Account_Ajax();
 		$this->notifications_hooks = new Pathway_Dashboard_Notifications_Hooks();
 		$this->notifications_ajax  = new Pathway_Dashboard_Notifications_Ajax();
+		$this->api_courses         = new Pathway_Dashboard_Api_Courses();
+		$this->api_enroll          = new Pathway_Dashboard_Api_Enroll();
+		$this->settings_page       = new Pathway_Dashboard_Settings_Page();
 
 		add_action( 'admin_notices', array( $this, 'maybe_show_dependency_notice' ) );
 

@@ -3,7 +3,7 @@
  * Plugin Name:       Pathway Student Dashboard
  * Plugin URI:        https://github.com/shakib6472/pathway-student-dashboard
  * Description:       A premium front-end student dashboard for Pathway Dental Academy. Renders via the [pathway_dashboard] shortcode and integrates with LearnDash LMS, Notes by LearnDash, and WooCommerce.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Shakib Shown
@@ -40,6 +40,10 @@ require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-
 require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-email.php';
 require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-hooks.php';
 require_once PATHWAY_DASH_DIR . 'includes/notifications/class-pathway-dashboard-notifications-ajax.php';
+require_once PATHWAY_DASH_DIR . 'includes/api/class-pathway-dashboard-api-keys.php';
+require_once PATHWAY_DASH_DIR . 'includes/api/class-pathway-dashboard-api-courses.php';
+require_once PATHWAY_DASH_DIR . 'includes/api/class-pathway-dashboard-api-enroll.php';
+require_once PATHWAY_DASH_DIR . 'includes/admin/class-pathway-dashboard-settings-page.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-assets.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-login.php';
 require_once PATHWAY_DASH_DIR . 'includes/class-pathway-dashboard-shortcode.php';

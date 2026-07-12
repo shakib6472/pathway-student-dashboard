@@ -22,6 +22,7 @@ $pathway_dash_unread = Pathway_Dashboard_Notifications_DB::unread_count( $user->
 $pathway_dash_type_icons = array(
 	'lesson_completed' => 'check',
 	'course_completed' => 'award',
+	'course_enrolled'  => 'book',
 	'quiz_passed'      => 'award',
 	'quiz_failed'      => 'pen',
 	'resource_added'   => 'folder',
