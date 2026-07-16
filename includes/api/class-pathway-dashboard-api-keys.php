@@ -58,13 +58,22 @@ class Pathway_Dashboard_Api_Keys {
 	}
 
 	/**
-	 * REST permission callback: validates the API key header.
+	 * REST permission callback: validates the API key.
+	 *
+	 * Accepted in either place:
+	 * - the X-Pathway-Api-Key header (preferred), or
+	 * - an api_key query/body parameter — for webhook senders that
+	 *   can only be configured with a URL (e.g. Gravity Forms).
 	 *
 	 * @param WP_REST_Request $request Incoming request.
 	 * @return true|WP_Error
 	 */
 	public static function verify_request( $request ) {
 		$sent = (string) $request->get_header( self::HEADER );
+
+		if ( '' === $sent ) {
+			$sent = (string) $request->get_param( 'api_key' );
+		}
 
 		if ( '' !== $sent && hash_equals( self::get_key(), $sent ) ) {
 			return true;

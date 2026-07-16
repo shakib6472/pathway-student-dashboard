@@ -290,8 +290,7 @@
 	width: 224px;
 	flex-shrink: 0;
 	padding: 20px 14px;
-	background: var(--pd-white);
-	border-right: 1px solid var(--pd-border);
+	background: var(--pd-navy);
 }
 
 .pathway-dash__nav-item {
@@ -302,7 +301,7 @@
 	border: none;
 	border-radius: var(--pd-radius-sm);
 	background: transparent;
-	color: var(--pd-teal-dark);
+	color: rgba(255, 255, 255, 0.72);
 	font-size: 14px;
 	font-weight: 500;
 	text-align: left;
@@ -312,25 +311,42 @@
 .pathway-dash__nav-item svg {
 	width: 18px;
 	height: 18px;
-	color: var(--pd-teal);
+	color: rgba(168, 216, 204, 0.75);
 	transition: color 0.15s ease;
 }
 
 .pathway-dash__nav-item:hover,
 .pathway-dash__nav-item:focus,
 .pathway-dash__nav-item:active {
-	background: var(--pd-mint-wash);
-	color: var(--pd-navy);
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--pd-white);
+}
+
+.pathway-dash__nav-item:hover svg,
+.pathway-dash__nav-item:focus svg {
+	color: var(--pd-mint);
 }
 
 .pathway-dash__nav-item.is-active {
-	background: var(--pd-mint-wash);
-	color: var(--pd-navy);
+	background: var(--pd-accent);
+	color: var(--pd-white);
 	font-weight: 600;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
 .pathway-dash__nav-item.is-active svg {
-	color: var(--pd-navy);
+	color: var(--pd-white);
+}
+
+/* Logout link pinned at the very bottom of the sidebar. */
+
+.pathway-dash__nav-item--logout,
+.pathway-dash__nav-item--logout:visited {
+	margin-top: 10px;
+	padding-top: 14px;
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 0 0 var(--pd-radius-sm) var(--pd-radius-sm);
+	color: rgba(255, 255, 255, 0.55);
 }
 
 .pathway-dash__content {

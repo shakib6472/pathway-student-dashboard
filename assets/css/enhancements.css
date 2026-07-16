@@ -183,11 +183,13 @@
 
 /* ---- Sidebar help card ---- */
 
+/* Frosted-glass card sitting on the navy sidebar. */
+
 .pathway-dash .pd-sidebar-help {
 	margin-top: auto;
 	padding: 16px 14px 14px;
-	background: linear-gradient(165deg, var(--pd-mint-wash), #e4f2ed);
-	border: 1px solid var(--pd-border);
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.14);
 	border-radius: var(--pd-radius-sm);
 }
 
@@ -198,9 +200,8 @@
 	width: 34px;
 	height: 34px;
 	border-radius: 50%;
-	background: var(--pd-white);
-	border: 1px solid var(--pd-border);
-	color: var(--pd-teal-dark);
+	background: rgba(255, 255, 255, 0.12);
+	color: var(--pd-mint);
 	margin-bottom: 10px;
 }
 
@@ -213,14 +214,14 @@
 	font-family: var(--pd-font-heading);
 	font-size: 14px;
 	font-weight: 600;
-	color: var(--pd-navy);
+	color: var(--pd-white);
 	margin-bottom: 3px;
 }
 
 .pathway-dash .pd-sidebar-help__text {
 	font-size: 12px;
 	line-height: 1.45;
-	color: var(--pd-teal);
+	color: rgba(255, 255, 255, 0.62);
 	margin-bottom: 12px;
 }
 
@@ -228,6 +229,13 @@
 	width: 100%;
 	padding: 8px 12px;
 	font-size: 12.5px;
+	background: var(--pd-accent);
+}
+
+.pathway-dash .pd-sidebar-help__btn:hover,
+.pathway-dash .pd-sidebar-help__btn:focus,
+.pathway-dash .pd-sidebar-help__btn:active {
+	background: var(--pd-accent-hover);
 }
 
 /* ---- Bell wiggle when unread ---- */

@@ -37,4 +37,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php esc_html_e( 'Contact Support', 'pathway-student-dashboard' ); ?>
 		</button>
 	</div>
+
+	<a class="pathway-dash__nav-item pathway-dash__nav-item--logout" href="<?php echo esc_url( wp_logout_url( add_query_arg( 'loggedout', 'true', pathway_dash()->login->get_login_url() ) ) ); ?>">
+		<?php echo pathway_dash_icon( 'logout' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?>
+		<span><?php esc_html_e( 'Log Out', 'pathway-student-dashboard' ); ?></span>
+	</a>
 </nav>

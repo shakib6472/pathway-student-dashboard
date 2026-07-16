@@ -18,6 +18,14 @@ X-Pathway-Api-Key: pda_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 - Requests with a missing/wrong key receive `401 Unauthorized`.
 - Always call the API over **HTTPS**. Never expose the key in front-end JavaScript — call these endpoints from the main site's server (PHP), not from the browser.
 
+**Alternative — key in the URL.** Webhook tools that only accept a URL (Gravity Forms Webhooks add-on, Zapier, etc.) can pass the key as a query parameter instead of a header:
+
+```
+https://learn.pathway2da.com/wp-json/pathway/v1/enroll?api_key=pda_xxxxxxxx
+```
+
+The header is preferred when you write code yourself (URLs can end up in server logs); the query parameter exists for tools where headers are inconvenient. HTTPS protects both in transit.
+
 ---
 
 ## 2. Endpoints
@@ -244,6 +252,36 @@ curl -s -X POST https://learn.pathway2da.com/wp-json/pathway/v1/enroll \
     "state": "TX"
   }'
 ```
+
+### 3.4 Gravity Forms — Webhooks add-on setup (no code)
+
+If the main site collects signups with Gravity Forms, the Webhooks add-on can call the enroll endpoint directly. Configure the webhook feed (**Form → Settings → Webhooks → Add New**) exactly like this:
+
+| Setting            | Value                                                                 |
+|--------------------|-----------------------------------------------------------------------|
+| **Request URL**    | `https://learn.pathway2da.com/wp-json/pathway/v1/enroll?api_key=pda_xxxxxxxx` |
+| **Request Method** | `POST`                                                                 |
+| **Request Format** | `JSON`                                                                 |
+| **Request Body**   | **Select Fields** (⚠️ not "All Fields")                                |
+
+Then add these field mappings under Request Body — the **Key** column must match exactly:
+
+| Key          | Value (form field)                                        |
+|--------------|-----------------------------------------------------------|
+| `email`      | the Email field                                           |
+| `first_name` | Name field → First                                        |
+| `last_name`  | Name field → Last                                         |
+| `password`   | the Password field                                        |
+| `course_id`  | a **Hidden field** containing the LMS course ID (e.g. 156) |
+| `state`      | the State dropdown (2-letter values: `TX`, `CA`, …)        |
+
+Notes:
+
+- **"All Fields" will not work** — it sends Gravity Forms internal field IDs (`1.3`, `2`, …) as keys, which the endpoint does not understand. Always use *Select Fields* with the keys above.
+- `course_id` is usually a hidden field whose default value is set per form/landing page (each course gets its own form or a dynamically populated value).
+- Numbers may arrive as strings (`"156"`) — the endpoint coerces them automatically.
+- Gravity Forms ignores the JSON response; that is fine. Successful calls return HTTP 200, which GF logs as a success. Check **Forms → Settings → Logging** when debugging.
+- The endpoint is idempotent, so GF retries/duplicate submissions are harmless.
 
 ---
 
