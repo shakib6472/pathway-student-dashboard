@@ -75,22 +75,24 @@ X-Pathway-Api-Key: <key>
 
 Call this from the main website **after a successful payment**. The LMS will:
 
-1. Create the student account (or reuse it if the email already exists — the existing password is never changed).
-2. Enroll the student in the course.
-3. Save the student's US state and generate a Student ID.
+1. Create the student account (or reuse it by email — the existing password is never changed).
+2. Save the student's US state and generate a Student ID.
+3. **Find every course whose `state` meta contains the incoming state** and enroll the student in all of them. (Courses are tagged with states on the LMS via a multi-select `state` meta field; matching is case-insensitive.)
 4. Email the student a welcome message with a **login link** (passwords are never emailed).
-5. Add a bell notification inside the dashboard.
+5. Add a bell notification inside the dashboard for each course.
+
+If **no course matches** the state, the account is still created (the student has paid) and the LMS admin receives an alert email to enroll the student manually — the request still returns `200` with `enrolled_count: 0`.
 
 **Request body:**
 
-| Field        | Type    | Required            | Notes                                              |
-|--------------|---------|---------------------|----------------------------------------------------|
-| `email`      | string  | yes                 | Student's email, becomes the username.             |
-| `first_name` | string  | yes                 |                                                    |
-| `last_name`  | string  | no                  |                                                    |
-| `password`   | string  | for **new** users   | Min 8 characters. Ignored for existing accounts.   |
-| `course_id`  | integer | yes                 | A course `id` from the courses endpoint.           |
-| `state`      | string  | no                  | 2-letter US state code, e.g. `"TX"`, `"CA"`.       |
+| Field        | Type    | Required            | Notes                                                       |
+|--------------|---------|---------------------|-------------------------------------------------------------|
+| `email`      | string  | yes                 | Student's email, becomes the username.                      |
+| `first_name` | string  | yes                 |                                                             |
+| `last_name`  | string  | no                  |                                                             |
+| `password`   | string  | for **new** users   | Min 8 characters. Ignored for existing accounts.            |
+| `state`      | string  | yes                 | 2-letter US state code, any case: `"TX"`, `"fl"`, `"Ca"`.   |
+| `course_id`  | integer | no (legacy)         | When sent, enrolls this exact course instead of state matching. |
 
 **Example request:**
 
@@ -100,8 +102,7 @@ Call this from the main website **after a successful payment**. The LMS will:
   "first_name": "Sarah",
   "last_name": "Miller",
   "password": "chosen-at-checkout-123",
-  "course_id": 156,
-  "state": "TX"
+  "state": "FL"
 }
 ```
 
@@ -112,15 +113,19 @@ Call this from the main website **after a successful payment**. The LMS will:
   "success": true,
   "user_id": 42,
   "created": true,
-  "already_enrolled": false,
-  "enrolled": true,
+  "state": "FL",
   "student_id": "PDA-2026-0042",
-  "course_id": 156
+  "courses": [
+    { "id": 156, "title": "Florida 80-Hour Dental Assistant Training", "already_enrolled": false }
+  ],
+  "matched_count": 1,
+  "enrolled_count": 1
 }
 ```
 
 - `created` — `true` when a new account was made, `false` for an existing student.
-- `already_enrolled` — `true` when the student already had this course (no duplicate email is sent).
+- `courses[].already_enrolled` — `true` when the student already had that course (no duplicate email is sent).
+- `matched_count` / `enrolled_count` — how many courses matched the state / how many were newly enrolled.
 - The endpoint is **idempotent**: sending the same request twice is safe.
 
 **Error responses:**
@@ -272,14 +277,13 @@ Then add these field mappings under Request Body — the **Key** column must mat
 | `first_name` | Name field → First                                        |
 | `last_name`  | Name field → Last                                         |
 | `password`   | the Password field                                        |
-| `course_id`  | a **Hidden field** containing the LMS course ID (e.g. 156) |
-| `state`      | the State dropdown (2-letter values: `TX`, `CA`, …)        |
+| `state`      | the State dropdown (2-letter values: `TX`, `CA`, `fl` — any case) |
 
 Notes:
 
 - **"All Fields" will not work** — it sends Gravity Forms internal field IDs (`1.3`, `2`, …) as keys, which the endpoint does not understand. Always use *Select Fields* with the keys above.
-- `course_id` is usually a hidden field whose default value is set per form/landing page (each course gets its own form or a dynamically populated value).
-- Numbers may arrive as strings (`"156"`) — the endpoint coerces them automatically.
+- **No course field is needed** — the LMS picks the course(s) automatically by matching the state against each course's `state` meta. Make sure the dropdown's *values* are 2-letter state codes.
+- If a state has no matching course yet, the student account is still created and the LMS admin gets an alert email to enroll them manually.
 - Gravity Forms ignores the JSON response; that is fine. Successful calls return HTTP 200, which GF logs as a success. Check **Forms → Settings → Logging** when debugging.
 - The endpoint is idempotent, so GF retries/duplicate submissions are harmless.
 
@@ -296,6 +300,7 @@ Notes:
 
 ## 5. Changelog
 
-| Date       | Change                                             |
-|------------|----------------------------------------------------|
-| 2026-07-12 | v1: courses endpoint + enrollment webhook shipped. |
+| Date       | Change                                                                                              |
+|------------|-----------------------------------------------------------------------------------------------------|
+| 2026-07-21 | Enroll webhook: `state` now selects the course(s) via course `state` meta; `course_id` optional (legacy). No-match → account created + admin alert. Response reshaped (`courses[]`, `matched_count`, `enrolled_count`). |
+| 2026-07-12 | v1: courses endpoint + enrollment webhook shipped.                                                  |

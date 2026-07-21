@@ -3,7 +3,7 @@
  * Plugin Name:       Pathway Student Dashboard
  * Plugin URI:        https://github.com/shakib6472/pathway-student-dashboard
  * Description:       A premium front-end student dashboard for Pathway Dental Academy. Renders via the [pathway_dashboard] shortcode and integrates with LearnDash LMS, Notes by LearnDash, and WooCommerce.
- * Version:           1.1.0 
+ * Version:           2.1.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Shakib Shown
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'PATHWAY_DASH_VERSION', '1.1.0' );
+define( 'PATHWAY_DASH_VERSION', '2.1.0' );
 define( 'PATHWAY_DASH_FILE', __FILE__ );
 define( 'PATHWAY_DASH_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PATHWAY_DASH_URL', plugin_dir_url( __FILE__ ) );
